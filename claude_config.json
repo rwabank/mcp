@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "aviatrust": {
+      "url": "https://aviatrust-mcp.YOUR-SUBDOMAIN.workers.dev/mcp",
+      "transport": "http",
+      "description": "AviaTrust audit score server for Solana tokens. Returns score 0-100, tier, and €PROOF certificate data."
+    }
+  }
+}
