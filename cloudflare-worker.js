@@ -1,5 +1,5 @@
 /* AviaTrust MCP Server — Cloudflare Worker
-   Deployed at: https://aviatrust-mcp.YOUR-SUBDOMAIN.workers.dev
+   Deployed at: https://mcp.aviabanktoken.workers.dev
    
    MCP tools:
      - get_aviatrust_score(mint)
@@ -128,6 +128,29 @@ export default {
 // ============================================================
 async function handleMCPRequest(body) {
   const { method, params, id } = body;
+
+  // MCP: initialize (handshake) — ОБЯЗАТЕЛЬНО для подключения клиента
+  if (method === 'initialize') {
+    return jsonResponse({
+      jsonrpc: '2.0',
+      id: id || 1,
+      result: {
+        protocolVersion: '2024-11-05',
+        capabilities: {
+          tools: {}
+        },
+        serverInfo: {
+          name: 'AviaTrust MCP Server',
+          version: '1.0.0'
+        }
+      }
+    });
+  }
+
+  // MCP: notifications/initialized (клиент подтверждает готовность)
+  if (method === 'notifications/initialized') {
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
+  }
 
   // MCP: list tools
   if (method === 'tools/list') {
