@@ -11,3 +11,4 @@ MCP (Model Context Protocol) is the standard for connecting AI agents (Claude, C
 - **`get_pool_liquidity(mint)`** — returns liquidity pool information
 
 ## Endpoint
+
